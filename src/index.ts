@@ -31,15 +31,19 @@ app.get('/visibility', async (req: Request, res: Response) => {
   const long = Number(longitude);
   const timeStamp = Number(time);
 
-  const [celestials, cloudCover] = await Promise.all([
-    getCelestials(lat, long, timeStamp),
-    getCloudCoverage(lat, long),
-  ]);
+  try {
+    const [celestials, cloudCover] = await Promise.all([
+      getCelestials(lat, long, timeStamp),
+      getCloudCoverage(lat, long, timeStamp),
+    ]);
 
-  res.send({
-    visibleCellestials: celestials,
-    cloudCoverage: cloudCover,
-  } as CelestialWeatherDTO);
+    res.send({
+      visibleCellestials: celestials,
+      cloudCoverage: cloudCover,
+    } as CelestialWeatherDTO);
+  } catch (err) {
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 app.listen(port, () => {
