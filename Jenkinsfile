@@ -16,7 +16,7 @@ pipeline {
 
         stage('Start Application') {
             steps {
-                sh 'pm2 stop all'
+                sh 'pm2 delete all'
                 sh 'pm2 start dist/index.js'
             }
         }
