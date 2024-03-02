@@ -10,14 +10,14 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'tsc'
+                sh 'npm run build'
             }
         }
 
         stage('Start Application') {
             steps {
                 sh 'pm2 stop all'
-                sh 'pm2 start src/index.js'
+                sh 'pm2 start dist/index.js'
             }
         }
     }
