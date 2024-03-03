@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { findFirstGreaterDateIndex, formatDateTimestamp } from '../utils/utils';
+import { CloudCoverageEntryDTO } from '../dto/CloudCoverageEntryDTO';
 
 const apiUrl = 'https://api.open-meteo.com/v1/forecast';
 const dayInMs = 86400000;
@@ -8,7 +9,7 @@ export const getCloudCoverage = async (
   latitude: number,
   longitude: number,
   time: number,
-): Promise<number[]> => {
+): Promise<CloudCoverageEntryDTO[]> => {
   const cloudCoverageResponse = await axios.get(apiUrl, {
     params: {
       latitude,
@@ -26,9 +27,12 @@ export const getCloudCoverage = async (
     return [];
   }
 
-  const cloudCoverage: number[] = []
+  const cloudCoverage: CloudCoverageEntryDTO[] = []
   for (let i = indexOfDesiredHour; i < indexOfDesiredHour + 5; i++) {
-    cloudCoverage.push(cloudCoverageResponse?.data?.hourly?.cloud_cover[i])
+    cloudCoverage.push({
+      dateString: cloudCoverageResponse?.data?.hourly?.time[i],
+      cloudCoverage: cloudCoverageResponse?.data?.hourly?.cloud_cover[i]
+    } as CloudCoverageEntryDTO)
   }
 
   return cloudCoverage;
