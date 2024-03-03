@@ -15,8 +15,8 @@ const app: Application = express();
 const port = process.env.PORT || 8000;
 
 const options = {
-  key: fs.readFileSync('root/private.pem'),
-  cert: fs.readFileSync('root/certificate.pem')
+  key: fs.readFileSync('/root/private.pem'),
+  cert: fs.readFileSync('/root/certificate.pem')
 };
 
 const httpsServer = https.createServer(options, app);
