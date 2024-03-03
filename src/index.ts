@@ -15,8 +15,8 @@ const app: Application = express();
 const port = process.env.PORT || 8000;
 
 const options = {
-  key: fs.readFileSync('/root/private.pem'),
-  cert: fs.readFileSync('/root/certificate.pem')
+  key: fs.readFileSync('/etc/letsencrypt/live/darkorbit.lol/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/darkorbit.lol/fullchain.pem')
 };
 
 const httpsServer = https.createServer(options, app);
