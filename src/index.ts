@@ -1,6 +1,6 @@
 import express, { Request, Response, Application } from 'express';
 import dotenv from 'dotenv';
-import { CellestialDTO } from './dto/CelestialDTO';
+import cors from 'cors';
 import { CelestialWeatherDTO } from './dto/CelestialWeatherDTO';
 import { getCelestials } from './http-handlers/VisibleCelestialsHttpHandler';
 import { getCloudCoverage } from './http-handlers/CloudCoverageHttpHandler';
@@ -11,11 +11,7 @@ dotenv.config();
 const app: Application = express();
 const port = process.env.PORT || 8000;
 
-type VisibilityRequest = {
-  latitude: number;
-  longitude: number;
-  time: number;
-};
+app.use(cors())
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello from Cellestial BE!');
