@@ -24,3 +24,9 @@ export const findFirstGreaterDateIndex = (
 
   return null;
 };
+
+export const convertTimestampToIsoDate = (timestamp: number): string => {
+  const date = new Date(timestamp);
+  const isoFormat = date.toISOString();
+  return isoFormat;
+};
