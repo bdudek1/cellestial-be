@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { CellestialDTO } from '../dto/CelestialDTO';
-import { formatNumber } from '../utils/utils';
+import { convertTimestampToIsoDate, formatNumber } from '../utils/utils';
 
 const apiUrl = 'https://api.visibleplanets.dev/v3';
 
@@ -13,9 +13,9 @@ export const getCelestials = async (
 
   const celestialResponse = await axios.get(apiUrl, {
     params: {
-      latitude,
-      longitude,
-      time,
+      latitude: latitude,
+      longitude: longitude,
+      time: convertTimestampToIsoDate(time),
     },
   });
 
